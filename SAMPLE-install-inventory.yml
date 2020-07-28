@@ -12,6 +12,9 @@ all:
           discourse_name: Your Name
           discourse_email: you@example.com
           discourse_install_type: pro
+          discourse_smtp_host: smtp-is-broken
+          discourse_smtp_user: missing
+          discourse_smtp_password: broken
           discourse_yml: web_only
           discourse_custom_plugins:
             - https://github.com/discourse/discourse-subscriptions.git
