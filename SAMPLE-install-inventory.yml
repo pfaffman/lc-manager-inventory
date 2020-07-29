@@ -19,3 +19,7 @@ all:
           discourse_yml: web_only
           discourse_custom_plugins:
             - https://github.com/discourse/discourse-subscriptions.git
+          discourse_remove_plugins:
+            - https://github.com/discourse/discourse-math.git
+            - https://github.com/discourse/discourse-oauth2-basic.git
+            - https://github.com/discourse/discourse-invite-tokens.git
