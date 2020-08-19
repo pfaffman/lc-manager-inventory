@@ -22,4 +22,3 @@ all:
           discourse_remove_plugins:
             - https://github.com/discourse/discourse-math.git
             - https://github.com/discourse/discourse-oauth2-basic.git
-            - https://github.com/discourse/discourse-invite-tokens.git
