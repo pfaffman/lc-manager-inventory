@@ -1,0 +1,120 @@
+all:
+  vars:
+    lc_client: SAMPLE
+    discourse_target_version: "2.5.0.beta4" # skip upgrade if matches
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_user: root
+    become_user: root
+    lc_inventory_repo: /home/{{lc_client}}/pricemate-inventory
+    discourse_smtp_host: smtp.mailgun.org
+    discourse_smtp_password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      33303762323932353734393932323163356163623761633865396562626330356437383966343262
+      32303065653661666465
+    discourse_smtp_port: 2525
+    discourse_smtp_user: apikey
+    discourse_email: you@example.com # for notifications, let's encrypt
+    discourse_name: Your Name
+    discourse_shortname: web_only
+    discourse_developer_emails: "jay@literatecomputing.com,you@example.com"
+    discourse_use_data_link: yes # don't change
+    discourse_install_type: custom # undocumented :-)
+    discourse_unicorn_workers: 2 # copy from your current config
+    discourse_open_ports: yes # don't change
+    # for standard 2-container
+    discourse_db_password: "12345676" # or use vault if you prefer
+    discourse_db_name: discourse
+    discourse_db_host: "data"
+    discourse_redis_db: 0
+    discourse_db_username: discourse
+    discourse_redis_host: data
+    discourse_yml: "web_only"
+    max_upload_size: 2048000
+
+  children:
+    discourse:
+      hosts:
+        simple.myforum.us:
+          discourse_name: Your Name
+          discourse_email: you@example.com
+          discourse_url: https://community.yoursite.com/
+          discourse_yml: app
+          discourse_custom_plugins:
+            - https://github.com/discourse/discourse-subscriptions.git
+        staging.myforum.us:
+          # want to pin to a particular Discourse commit?
+          discourse_force_version: 40dfac176fcbdf74979270ad305328b933ee93c0
+          discourse_hostname: test.myforum.us
+          discourse_url: "https://{{discourse_hostname}}"
+          discourse_db_password: abcde # if different from above default
+          discourse_extra_envs:
+            - "DISCOURSE_ENABLE_S3_UPLOADS: true"
+            - "DISCOURSE_BACKUP_LOCATION: s3"
+            - "DISCOURSE_S3_ACCESS_KEY_ID: AABBCC"
+            - "DISCOURSE_S3_SECRET_ACCESS_KEY: 213ff" # or vault
+            - "DISCOURSE_DISABLE_EMAILS: non-staff" # REMOVE FOR PRODUCTION
+            - "DISCOURSE_AUTOMATIC_BACKUPS_ENABLED: false" # change # for production!
+            - "DISCOURSE_ALLOW_RESTORE: true" # remove for production!
+            - "DISCOURSE_ALLOW_INDEX_IN_ROBOTS_TXT: false" # REMOVE!
+            - "DISCOURSE_ENFORCE_SECOND_FACTOR: no" # REMOVE for prod
+            - "DISCOURSE_S3_BACKUP_BUCKET: my-backups"
+            - "DISCOURSE_S3_UPLOAD_BUCKET: my-uploads"
+            - "DISCOURSE_S3_ENDPOINT: ''"
+            - "DISCOURSE_BACKUP_LOCATION: s3"
+            - "DISCOURSE_MAXMIND_LICENSE_KEY: 2345"
+          # Include plugins that don't need pinning here
+          # there should be no reason to pin docker_manager
+          discourse_custom_plugins:
+            - https://github.com/discourse/docker_manager.git
+
+          # if commit != "latest" then a `git reset --hard <commit>`
+          # will be added to `after_bundle_exec`. NOTE: The name must
+          # match the directory that the plugin will be cloned into.
+          # there is probably little need to pin standard plugins
+          # unless you know that they interact with your customizations
+
+          # It might make sense to change the commit to "latest" for
+          # staging and then pin the versions only on production
+          discourse_pinned_plugins:
+            discourse-akismet:
+              url: https://github.com/discourse/discourse-akismet.git
+              commit: latest
+            discourse-assign:
+              url: https://github.com/discourse/discourse-assign.git
+              commit: 333d1071f385ed0391427b48fb126d7468813a66
+            discourse-cakeday:
+              url: https://github.com/discourse/discourse-cakeday.git
+              commit: latest
+            discourse-canned-replies:
+              url: https://github.com/discourse/discourse-canned-replies.git
+              commit: 3e628c3bbc8c36542334217dea8bc332e9736c35
+            discourse-calendar:
+              url: https://github.com/discourse/discourse-calendar.git
+              commit: f5ffee3e6af32a8a5aa9616f33505cff0e3b6dc9
+            discourse-checklist:
+              url: https://github.com/discourse/discourse-checklist.git
+              commit: decbc45e295bc10e8bb0f6b3376e384b816e6131
+            discourse-data-explorer:
+              url: https://github.com/discourse/discourse-data-explorer.git
+              commit: c0a0679cafa05e45fcf9401ab13c9b9c2fef4431
+            discourse-github:
+              url: https://github.com/discourse/discourse-github.git
+              commit: afc5d55000d7156881516c99391da1b07b6c888b
+            discourse-user-notes:
+              url: https://github.com/discourse/discourse-user-notes.git
+              commit: d0dcad9635bb6ebc02fbccedf3d94e36a470dffb
+            discourse-invite-tokens:
+              url: https://github.com/discourse/discourse-invite-tokens.git
+              commit: aaffe2488ddd7eb9f52e91b606c07a8c3b53232f
+            discourse-sitemap:
+              url: https://github.com/discourse/discourse-sitemap.git
+              commit: d3e91e6e2887530188c8d0e53334197d81884ff9
+            discourse-spoiler-alert:
+              url: https://github.com/discourse/discourse-spoiler-alert.git
+              commit: c469455eec10dff67dc0530c7325aaef1a6cfcd6
