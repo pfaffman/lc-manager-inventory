@@ -116,5 +116,4 @@ all:
               url: https://github.com/discourse/discourse-sitemap.git
               commit: d3e91e6e2887530188c8d0e53334197d81884ff9
             discourse-spoiler-alert:
-              url: https://github.com/discourse/discourse-spoiler-alert.git
-              commit: c469455eec10dff67dc0530c7325aaef1a6cfcd6
+
