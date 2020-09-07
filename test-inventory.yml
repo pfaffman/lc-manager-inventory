@@ -112,7 +112,4 @@ all:
             discourse-invite-tokens:
               url: https://github.com/discourse/discourse-invite-tokens.git
               commit: aaffe2488ddd7eb9f52e91b606c07a8c3b53232f
-            discourse-sitemap:
-              url: https://github.com/discourse/discourse-sitemap.git
-              commit: d3e91e6e2887530188c8d0e53334197d81884ff9
-
+ 
