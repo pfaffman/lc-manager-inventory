@@ -97,6 +97,3 @@ all:
             discourse-calendar:
               url: https://github.com/discourse/discourse-calendar.git
               commit: f5ffee3e6af32a8a5aa9616f33505cff0e3b6dc9
-            discourse-checklist:
-              url: https://github.com/discourse/discourse-checklist.git
-              commit: decbc45e295bc10e8bb0f6b3376e384b816e6131
