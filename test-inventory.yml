@@ -106,8 +106,3 @@ all:
             discourse-github:
               url: https://github.com/discourse/discourse-github.git
               commit: afc5d55000d7156881516c99391da1b07b6c888b
-            discourse-user-notes:
-              url: https://github.com/discourse/discourse-user-notes.git
-              commit: d0dcad9635bb6ebc02fbccedf3d94e36a470dffb
-  
- 
