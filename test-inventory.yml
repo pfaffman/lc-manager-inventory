@@ -100,6 +100,3 @@ all:
             discourse-checklist:
               url: https://github.com/discourse/discourse-checklist.git
               commit: decbc45e295bc10e8bb0f6b3376e384b816e6131
-            discourse-data-explorer:
-              url: https://github.com/discourse/discourse-data-explorer.git
-              commit: c0a0679cafa05e45fcf9401ab13c9b9c2fef4431
