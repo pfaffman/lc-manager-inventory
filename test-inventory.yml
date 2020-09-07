@@ -109,7 +109,5 @@ all:
             discourse-user-notes:
               url: https://github.com/discourse/discourse-user-notes.git
               commit: d0dcad9635bb6ebc02fbccedf3d94e36a470dffb
-            discourse-invite-tokens:
-              url: https://github.com/discourse/discourse-invite-tokens.git
-              commit: aaffe2488ddd7eb9f52e91b606c07a8c3b53232f
+  
  
