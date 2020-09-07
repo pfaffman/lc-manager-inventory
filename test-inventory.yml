@@ -103,6 +103,3 @@ all:
             discourse-data-explorer:
               url: https://github.com/discourse/discourse-data-explorer.git
               commit: c0a0679cafa05e45fcf9401ab13c9b9c2fef4431
-            discourse-github:
-              url: https://github.com/discourse/discourse-github.git
-              commit: afc5d55000d7156881516c99391da1b07b6c888b
